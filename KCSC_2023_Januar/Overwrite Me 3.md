@@ -142,7 +142,7 @@ I got an EOF (End Of File) Error. This was not supposed to happen. I did not rea
 The issue seemed to be that the stack was unaligned. A so-called `MOVEAPS` issue. The link above said this: 
 > movaps triggers a general protection fault when operating on unaligned data, so try padding your ROP chain with an extra `ret` before returning into a function or return further into a function to skip a `push` instruction.
 
-I decided to try pad an extra `ret` before the `win()` address. I were recommended https://github.com/JonathanSalwan/ROPgadget
+I decided to try pad an extra `ret` before the `win()` address. I was recommended https://github.com/JonathanSalwan/ROPgadget by @nicw.
 This program can find ROPgadgets in a binary.
 Running the program on the binary given in the challenge:
 
