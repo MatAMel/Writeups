@@ -78,7 +78,7 @@ This sum variable is then compared to the value 0x539 which is 1337 (LEET) in de
 
 This gave me the second constraint. The ASCII-values of the key has to sum up to 1337 in decimal.
 
-With this in mind I wrote a simple Python-script which generated keys with those 2 constraints.
+I have done something similar and already had a Python-script in my notes. I just had to make som small adjustemnts, like adding the key length constraint.
 
 ```python
 import random
