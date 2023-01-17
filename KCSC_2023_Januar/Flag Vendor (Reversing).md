@@ -1,4 +1,6 @@
 
+## Flag Vendor (Reversing)
+
 In this challenge we were given a binary file which checks the input against a valid license key.  The task was to find out how the binary validated the keys.
 
 The first step was to open the binary in a reversing tool. I used Ghidra which was developed by the NSA.
