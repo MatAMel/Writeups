@@ -82,11 +82,11 @@ The next step was to debugg the binary in gdb and find the offsett.
 By running the binary with the string `AAAABBBBCCCCDDDDEEEEFFFFGGGGHHHHIIIIJJJJKKKKLLLLMMMMNNNNOOOOPPPPQQQQRRRRSSSSTTTTUUUUVVVVWWWWXXXXYYYYZZZZ` I could find out where the offsett was.
 
 Below is how the registers looked after i executed the binary in gdb with the string above.
-I could see that the `rsp` register contained `KKKKLLLLMMMMNNNNOOOOPPP`. The `rsp` register contains the address that gets popped into the `rip` register on a `ret` instruction. The `rip` register contains the address of the next instruction. Therefore I want to put the address of the `win()` function in the `rip`register, to jump there and get a shell.
+I could see that the `rsp` register contained `KKKKLLLLMMMMNNNNOOOOPPP`. The `rsp` register contains the address that gets popped into the `rip` register on a `ret` instruction. The `rip` register contains the address of the next instruction. Therefore I want to put the address of the `win()` function in the `rip`     register, to jump there and get a shell.
 
 The padding for this exploit is therefore `AAAABBBBCCCCDDDDEEEEFFFFGGGGHHHHIIIIJJJJ`
 
-In x86-64 the value in the `rsp` register does not get popped to `rip` unless it is a valid address. This was my first mistake, because i looked for the overflow in the `rip` register, but the values i passed in to find the offset were not valid addresses. In x86 on the other hand does pop the value in `esp` into `eip` (`esp` and `eip` are the equivalent registers in x86).
+In x86-64 the value in the `rsp` register does not get popped to `rip` unless it is a valid address. This was my first mistake, because i looked for the overflow in the `rip` register, but the values i passed in to find the offset were not valid addresses. x86 on the other hand does pop the value in `esp` into `eip` without checking if it is a valid address (`esp` and `eip` are the equivalent registers in x86).
 
 
 ```c
@@ -140,7 +140,7 @@ Wrong. You lose!
 I got an EOF (End Of File) Error. This was not supposed to happen. I did not really know what the problem was until i was sent this article by @tbi: https://ropemporium.com/guide.html
 
 The issue seemed to be that the stack was unaligned. A so-called `MOVEAPS` issue. The link above said this: 
->>> movaps triggers a general protection fault when operating on unaligned data, so try padding your ROP chain with an extra `ret` before returning into a function or return further into a function to skip a `push` instruction.
+> movaps triggers a general protection fault when operating on unaligned data, so try padding your ROP chain with an extra `ret` before returning into a function or return further into a function to skip a `push` instruction.
 
 I decided to try pad an extra `ret` before the `win()` address. I were recommended https://github.com/JonathanSalwan/ROPgadget
 This program can find ROPgadgets in a binary.
