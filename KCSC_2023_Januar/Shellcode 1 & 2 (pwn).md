@@ -10,6 +10,7 @@ The binary given was x86-64. Therefore I had to use shellcode that fit.
 
 By scrolling down to Linux x86-64 on the shell-storm website I found this:
 https://shell-storm.org/shellcode/files/shellcode-905.html
+This shellcode executes `/bin/sh` giving me a shell on the remote system.
 
 This shellcode was only 29 bytes and well within the 64 bytes buffer.
 
